@@ -1,0 +1,207 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    }
+    
+    body{
+    
+    background:#050505;
+    color:white;
+    
+    font-family:
+    system-ui,
+    sans-serif;
+    
+    line-height:1.6;
+    }
+    
+    .hero{
+    
+    min-height:100vh;
+    
+    display:flex;
+    
+    align-items:center;
+    
+    justify-content:center;
+    
+    padding:40px;
+    
+    background:
+    radial-gradient(
+    circle,
+    #182240,
+    #050505
+    );
+    
+    }
+    
+    .hero-content{
+    
+    display:grid;
+    
+    grid-template-columns:
+    1fr
+    1fr;
+    
+    gap:60px;
+    
+    max-width:1200px;
+    
+    align-items:center;
+    
+    }
+    
+    .poster{
+    
+    width:100%;
+    
+    max-width:500px;
+    
+    border-radius:12px;
+    
+    box-shadow:
+    0 0 80px
+    rgba(
+    0,
+    180,
+    255,
+    0.25
+    );
+    
+    }
+    
+    .hero-text h1{
+    
+    font-size:5rem;
+    
+    letter-spacing:.08em;
+    
+    }
+    
+    .hero-text h2{
+    
+    color:#7dd6ff;
+    
+    margin-bottom:20px;
+    
+    }
+    
+    .hero-text p{
+    
+    max-width:500px;
+    
+    opacity:.85;
+    
+    }
+    
+    .buttons{
+    
+    margin-top:32px;
+    
+    display:flex;
+    
+    gap:16px;
+    
+    flex-wrap:wrap;
+    
+    }
+    
+    .buttons a{
+    
+    text-decoration:none;
+    
+    padding:14px 24px;
+    
+    border-radius:999px;
+    
+    font-weight:bold;
+    
+    }
+    
+    .primary{
+    
+    background:#00d2ff;
+    
+    color:black;
+    
+    }
+    
+    .secondary{
+    
+    border:
+    1px solid white;
+    
+    color:white;
+    
+    }
+    
+    .section{
+    
+    padding:100px 24px;
+    
+    max-width:900px;
+    
+    margin:auto;
+    
+    }
+    
+    .section h3{
+    
+    margin-bottom:20px;
+    
+    font-size:2rem;
+    
+    }
+    
+    .dark{
+    
+    background:#101010;
+    
+    border-radius:20px;
+    
+    }
+    
+    .links{
+    
+    display:flex;
+    
+    gap:24px;
+    
+    flex-wrap:wrap;
+    
+    }
+    
+    .links a{
+    
+    color:#7dd6ff;
+    
+    }
+    
+    footer{
+    
+    padding:50px;
+    
+    text-align:center;
+    
+    opacity:.5;
+    
+    }
+    
+    @media(max-width:900px){
+    
+    .hero-content{
+    
+    grid-template-columns:
+    1fr;
+    
+    }
+    
+    .hero-text h1{
+    
+    font-size:3rem;
+    
+    }
+    
+    }
