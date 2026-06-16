@@ -3,120 +3,1167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>REVVED UP | The Iron Circuit</title>
+<title>Revved Up: The Iron Circuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<link rel="stylesheet" href="style.css">
+  :root {
+    --neon-cyan: #00e5ff;
+    --neon-magenta: #e040fb;
+    --neon-yellow: #f9f002;
+    --neon-orange: #ff7b00;
+    --dark-bg: #07060f;
+    --dark-mid: #0f0d1e;
+    --dark-card: #12101f;
+    --text-white: #f5f0ff;
+    --text-muted: #a89dc0;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
 
-<meta property="og:title" content="REVVED UP: The Iron Circuit">
-<meta property="og:description"
-content="A 10 minute animated short built over five years.">
-<meta property="og:image" content="assets/poster.jpg">
+  html { scroll-behavior: smooth; }
 
+  body {
+    background: var(--dark-bg);
+    color: var(--text-white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    background: rgba(7,6,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,229,255,0.12);
+  }
+
+  .nav-logo img {
+    height: 48px;
+    width: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--neon-cyan); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1.5px solid var(--neon-magenta);
+    color: var(--neon-magenta) !important;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-cta:hover {
+    background: var(--neon-magenta) !important;
+    color: #000 !important;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-white);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 1.5rem 4rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(7,6,15,0.3) 0%,
+      rgba(7,6,15,0.15) 40%,
+      rgba(7,6,15,0.85) 80%,
+      rgba(7,6,15,1) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 900;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-title .line-accent {
+    color: var(--neon-cyan);
+    -webkit-text-stroke: 1px var(--neon-cyan);
+  }
+
+  .hero-body {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 480px;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--neon-magenta);
+    color: #000;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    transition: opacity 0.2s, transform 0.15s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--neon-cyan);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    border: 1.5px solid var(--neon-cyan);
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    background: var(--neon-cyan);
+    color: #000;
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 1.5rem; }
+
+  .section-label {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--neon-magenta);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--neon-magenta);
+    opacity: 0.5;
+  }
+
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  /* STORY */
+  .story {
+    background: var(--dark-mid);
+    border-top: 1px solid rgba(0,229,255,0.1);
+    border-bottom: 1px solid rgba(0,229,255,0.1);
+  }
+
+  .story-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .story-video {
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0,229,255,0.2);
+    background: #000;
+  }
+
+  .story-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark-card);
+    cursor: pointer;
+    gap: 1rem;
+  }
+
+  .play-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--neon-magenta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .play-btn:hover { background: rgba(224,64,251,0.15); }
+
+  .play-btn svg { margin-left: 4px; }
+
+  .video-label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .story-text .section-heading { color: var(--neon-cyan); }
+
+  .story-text p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .story-text p strong {
+    color: var(--text-white);
+  }
+
+  /* STILLS */
+  .stills-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .stills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .still-item {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid rgba(224,64,251,0.15);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .still-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.3s;
+    filter: brightness(0.9) saturate(1.1);
+  }
+
+  .still-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1) saturate(1.3);
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: 90svh;
+    border-radius: 6px;
+    object-fit: contain;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .lightbox-close:hover { opacity: 1; }
+
+  /* FESTIVALS */
+  .festivals {
+    background: var(--dark-mid);
+    border-top: 1px solid rgba(224,64,251,0.1);
+    border-bottom: 1px solid rgba(224,64,251,0.1);
+  }
+
+  .festivals-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .festivals-inner .section-label {
+    justify-content: center;
+  }
+
+  .festivals-inner .section-label::after {
+    display: none;
+  }
+
+  .laurels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .laurel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  .laurel-wreath {
+    width: 110px;
+    height: 110px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .laurel-wreath svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .laurel-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 12px;
+  }
+
+  .laurel-official {
+    font-family: var(--font-display);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    line-height: 1;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .laurel-name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 0.85rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--neon-yellow);
+  }
+
+  .laurel-year {
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+    display: block;
+  }
+
+  /* FILMMAKER / ABOUT */
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-poster {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0,229,255,0.15);
+    box-shadow: 0 0 40px rgba(0,229,255,0.08);
+  }
+
+  .about-poster img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .about-text p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p strong { color: var(--neon-cyan); }
+
+  /* CONTACT */
+  .contact {
+    background: var(--dark-mid);
+    border-top: 1px solid rgba(0,229,255,0.1);
+  }
+
+  .contact-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-inner .section-label {
+    justify-content: center;
+  }
+  .contact-inner .section-label::after { display: none; }
+
+  .contact-tagline {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+  }
+
+  .contact-cta-line {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .social-row {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .social-link {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .social-link:hover {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+  }
+
+  .social-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  footer p {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(168,157,192,0.5);
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--neon-cyan);
+    margin: 0 0 1.5rem;
+    opacity: 0.6;
+  }
+
+  /* TRAILER MODAL */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .modal-backdrop.open { display: flex; }
+
+  .modal-content {
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+  }
+
+  .modal-video-wrap {
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0,229,255,0.2);
+  }
+
+  .modal-video-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    opacity: 0.7;
+    line-height: 1;
+    transition: opacity 0.2s;
+  }
+
+  .modal-close:hover { opacity: 1; }
+
+  /* SCREENER MODAL */
+  .screener-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .screener-modal.open { display: flex; }
+
+  .screener-box {
+    background: var(--dark-card);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 10px;
+    padding: 2.5rem 2rem;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    text-align: center;
+  }
+
+  .screener-box h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+    margin-bottom: 0.75rem;
+  }
+
+  .screener-box p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .screener-box input,
+  .screener-box textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 0.7rem 0.9rem;
+    color: var(--text-white);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .screener-box input:focus,
+  .screener-box textarea:focus {
+    border-color: var(--neon-cyan);
+  }
+
+  .screener-box textarea { resize: vertical; min-height: 80px; }
+
+  .screener-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0.65rem 1rem; }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(7,6,15,0.97);
+      flex-direction: column;
+      padding: 1.5rem 1rem;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(0,229,255,0.12);
+    }
+
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+
+    .hero { padding: 0 1rem 3rem; align-items: flex-end; }
+
+    .story-inner,
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .about-poster { order: -1; }
+
+    section { padding: 3.5rem 1rem; }
+
+    .stills-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+
+    .laurels { gap: 1.25rem; }
+    .laurel-wreath { width: 90px; height: 90px; }
+    .laurel-name { font-size: 0.75rem; }
+
+    .contact-inner { text-align: left; }
+    .contact-inner .section-label { justify-content: flex-start; }
+    .contact-actions { justify-content: flex-start; }
+    .social-row { justify-content: flex-start; }
+  }
+
+  @media (max-width: 420px) {
+    .stills-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 2.4rem; }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
 </head>
-
 <body>
 
-<header class="hero">
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" aria-label="Revved Up home">
+    <img src="logo.jpg" alt="Revved Up: The Iron Circuit">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#stills">Stills</a></li>
+    <li><a href="#festivals">Festivals</a></li>
+    <li><a href="#filmmaker">Filmmaker</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" class="nav-cta" onclick="openTrailer(event)">Watch Trailer ▶</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-<div class="overlay"></div>
-
-<div class="hero-content">
-
-<img
-class="poster"
-src="assets/poster.jpg"
-alt="REVVED UP Poster">
-
-<div class="hero-text">
-
-<div class="laurel">
-<img src="assets/laurel.png" alt="Official Selection">
-</div>
-
-<h1>REVVED UP</h1>
-
-<h2>The Iron Circuit</h2>
-
-<p>
-A 10 minute animated short built over five years outside
-of professional work.
-</p>
-
-<div class="buttons">
-
-<a class="primary"
-href="https://YOUR_TRAILER_LINK">
-Watch Trailer
-</a>
-
-<a class="secondary"
-href="https://YOUR_PASSWORD_SCREENING_LINK">
-Watch Full Film
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</header>
-
-
-<section class="section">
-
-<h3>ABOUT THE FILM</h3>
-
-<p>
-When a young racer crashes out early, he must rebuild more
-than his machine to compete again.
-</p>
-
+<!-- HERO -->
+<section class="hero" id="home" aria-label="Hero">
+  <div class="hero-bg">
+    <img src="logo_2.jpg" alt="Revved Up: The Iron Circuit poster — a neon-lit race car tears through a desert circuit" loading="eager">
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">An animated short film</p>
+    <h1 class="hero-title">A fast-paced<br><span class="line-accent">race for greatness.</span><br>Built to be legendary.</h1>
+    <p class="hero-body">10 minute animated short built over five years. Fueled by passion. Driven to inspire.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" onclick="openTrailer(event)">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+        Watch Trailer
+      </a>
+      <button class="btn-secondary" onclick="openScreener()">
+        Request Screener
+      </button>
+    </div>
+  </div>
 </section>
 
-
-<section class="section dark">
-
-<h3>DIRECTOR</h3>
-
-<p>
-Created by Ian Minshull.
-
-Animator, technical artist, and storyteller exploring
-the intersection of animation and emerging technology.
-</p>
-
+<!-- STORY -->
+<section class="story" id="about">
+  <div class="story-inner">
+    <div class="story-video reveal">
+      <div class="video-placeholder" onclick="openTrailer()">
+        <div class="play-btn">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <polygon points="6,2 20,11 6,20" fill="#e040fb"/>
+          </svg>
+        </div>
+        <span class="video-label">Watch the trailer</span>
+      </div>
+    </div>
+    <div class="story-text reveal">
+      <p class="section-label">The story</p>
+      <div class="divider"></div>
+      <h2 class="section-heading" style="color: var(--neon-cyan);">The Iron Circuit</h2>
+      <p>A young boy has a passion for racing. He’s determined to win a big race</p>
+      <p><strong>Revved Up: The Iron Circuit</strong> is a high-octane animated short about courage, determination, and the refusal to stay in your lane.</p>
+      <p>Official selections at LA Shorts International - With more festivals to come!</p>
+    </div>
+  </div>
 </section>
 
-
-<section class="section">
-
-<h3>CONNECT</h3>
-
-<div class="links">
-
-<a href="YOUR_LINKEDIN">
-LinkedIn
-</a>
-
-<a href="YOUR_INSTAGRAM">
-Instagram
-</a>
-
-<a href="mailto:YOUR_EMAIL">
-Email
-</a>
-
-</div>
-
+<!-- STILLS -->
+<section id="stills">
+  <div class="stills-inner">
+    <p class="section-label reveal">From the Iron Circuit</p>
+    <div class="stills-grid">
+      <div class="still-item reveal" onclick="openLightbox('screenshot_1.jpg')">
+        <img src="screenshot_1.jpg" alt="Still from Revved Up" loading="lazy">
+      </div>
+      <div class="still-item reveal" onclick="openLightbox('screenshot_2.jpg')">
+        <img src="screenshot_2.jpg" alt="Still from Revved Up" loading="lazy">
+      </div>
+      <div class="still-item reveal" onclick="openLightbox('screenshot_3.jpg')">
+        <img src="screenshot_3.jpg" alt="Still from Revved Up" loading="lazy">
+      </div>
+      <div class="still-item reveal" onclick="openLightbox('screenshot_4.jpg')">
+        <img src="screenshot_4.jpg" alt="Still from Revved Up" loading="lazy">
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- FESTIVALS -->
+<section class="festivals" id="festivals">
+  <div class="festivals-inner">
+    <p class="section-label reveal" style="justify-content:center;">Festival journey</p>
+    <h2 class="section-heading reveal" style="color: var(--neon-yellow);">Official Selections</h2>
+    <div class="laurels">
+      <!-- Annecy -->
 
+      <!-- SIGGRAPH -->
+
+      <!-- Atlanta -->
+
+      <!-- LA Shorts -->
+      <div class="laurel reveal">
+        <div class="laurel-wreath">
+          <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g opacity="0.7" stroke="#f9f002" stroke-width="1.2">
+              <path d="M20 55 C12 45, 10 30, 20 20 C25 15, 32 14, 38 18" stroke-linecap="round"/>
+              <path d="M18 55 C8 50, 5 35, 12 22" stroke-linecap="round"/>
+              <path d="M22 60 C10 58, 6 42, 14 28" stroke-linecap="round"/>
+              <path d="M25 65 C13 65, 8 50, 16 36" stroke-linecap="round"/>
+              <path d="M90 55 C98 45, 100 30, 90 20 C85 15, 78 14, 72 18" stroke-linecap="round"/>
+              <path d="M92 55 C102 50, 105 35, 98 22" stroke-linecap="round"/>
+              <path d="M88 60 C100 58, 104 42, 96 28" stroke-linecap="round"/>
+              <path d="M85 65 C97 65, 102 50, 94 36" stroke-linecap="round"/>
+              <path d="M55 88 L50 96 L55 94 L60 96 Z" fill="#f9f002" opacity="0.5"/>
+            </g>
+          </svg>
+          <div class="laurel-text">
+            <span class="laurel-official">Official Selection</span>
+            <span class="laurel-name">LA Shorts<br>Intl. Festival</span>
+            <span class="laurel-year">2025</span>
+          </div>
+        </div>
+      </div>
+      <!-- More -->
+      <div class="laurel reveal">
+        <div class="laurel-wreath">
+          <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g opacity="0.4" stroke="#f9f002" stroke-width="1.2">
+              <path d="M20 55 C12 45, 10 30, 20 20 C25 15, 32 14, 38 18" stroke-linecap="round"/>
+              <path d="M18 55 C8 50, 5 35, 12 22" stroke-linecap="round"/>
+              <path d="M22 60 C10 58, 6 42, 14 28" stroke-linecap="round"/>
+              <path d="M25 65 C13 65, 8 50, 16 36" stroke-linecap="round"/>
+              <path d="M90 55 C98 45, 100 30, 90 20 C85 15, 78 14, 72 18" stroke-linecap="round"/>
+              <path d="M92 55 C102 50, 105 35, 98 22" stroke-linecap="round"/>
+              <path d="M88 60 C100 58, 104 42, 96 28" stroke-linecap="round"/>
+              <path d="M85 65 C97 65, 102 50, 94 36" stroke-linecap="round"/>
+              <path d="M55 88 L50 96 L55 94 L60 96 Z" fill="#f9f002" opacity="0.5"/>
+            </g>
+          </svg>
+          <div class="laurel-text" style="opacity:0.6;">
+            <span class="laurel-official">And</span>
+            <span class="laurel-name" style="color: var(--text-muted);">More to<br>come</span>
+            <span class="laurel-year">&nbsp;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILMMAKER -->
+<section id="filmmaker">
+  <div class="about-inner">
+    <div class="about-poster reveal">
+      <img src="poster.png" alt="Revved Up: The Iron Circuit official poster">
+    </div>
+    <div class="about-text reveal">
+      <p class="section-label">The filmmaker</p>
+      <div class="divider"></div>
+      <h2 class="section-heading">One vision.<br><span style="color:var(--neon-magenta);">Five years.</span></h2>
+      <p><strong>Revved Up: The Iron Circuit</strong> is an animated short by Ian Minshull. Built over five years between work and family life, frame by frame, with no studio backing.</p>
+      <p>For years, I’ve poured my creativity into building stories, visuals, and experiences for other people while balancing the responsibility of supporting a family. This film marks a reminder that creating something deeply personal isn’t a luxury for an artist. It’s necessary, because somewhere inside the exhaustion of creating, there still has to be a piece of yourself that remains your own.</p>
+      <p>What started as a passion project became an internationally recognized work, now screening at some of the world's most prestigious animation and film festivals.</p>
+      <div style="margin-top:2rem;">
+        <button class="btn-primary" onclick="openScreener()">Request a Screener</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <p class="section-label">Contact</p>
+    <div class="divider" style="margin: 0 auto 1.5rem;"></div>
+    <h2 class="section-heading reveal" style="color: var(--text-white);">Thank you for being<br><span style="color: var(--neon-cyan);">part of the journey.</span></h2>
+    <p class="contact-tagline reveal">Whether you're here to watch, support, or collaborate — your interest helps fuel this film's mission.</p>
+    <p class="contact-cta-line reveal">Let's keep the film revved up.</p>
+    <div class="contact-actions reveal">
+      <a href="https://www.youtube.com/embed/EB_V7Zs50yw" class="btn-primary" onclick="openTrailer(event)">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+        Watch Trailer
+      </a>
+      <button class="btn-secondary" onclick="openScreener()">Request Screener</button>
+    </div>
+    <div class="social-row reveal">
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/revvedupfilm" class="social-link" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/ianminshull/" class="social-link" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+      <!-- Email -->
+      <a href="mailto:ianminshull@gmail.com" class="social-link" aria-label="Email">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-
-Built independently • 2026
-
+  <p>© 2026 Revved Up: The Iron Circuit &nbsp;•&nbsp; All Rights Reserved</p>
 </footer>
 
+<!-- TRAILER MODAL -->
+<div class="modal-backdrop" id="trailerModal" role="dialog" aria-label="Trailer" aria-modal="true">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeTrailer()" aria-label="Close trailer">×</button>
+    <div class="modal-video-wrap" id="trailerWrap">
+      <!-- Swap the src below with your YouTube embed URL, e.g.: -->
+      <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/EB_V7Zs50yw?si=6lyA7JPI7BfpKeyv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+    </div>
+  </div>
+</div>
+
+<!-- SCREENER MODAL -->
+<div class="screener-modal" id="screenerModal" role="dialog" aria-label="Request a screener" aria-modal="true">
+  <div class="screener-box">
+    <button class="screener-close" onclick="closeScreener()" aria-label="Close">×</button>
+    <h2>Request a Screener</h2>
+    <p>Fill in your details and we'll be in touch with screener access.</p>
+    <input type="text" placeholder="Your name" autocomplete="name">
+    <input type="email" placeholder="Email address" autocomplete="email">
+    <input type="text" placeholder="Organization / Festival (optional)">
+    <textarea placeholder="Anything you'd like to add?"></textarea>
+    <button class="btn-primary" style="width:100%; justify-content:center; margin-top:0.25rem;" onclick="submitScreener()">Send Request</button>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Image viewer" aria-modal="true">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">×</button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
+<script>
+  // NAV HAMBURGER
+  const ham = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  ham.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    ham.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // TRAILER — replace PASTE_YOUR_YOUTUBE_EMBED_URL_HERE with your URL
+  const TRAILER_URL = 'https://www.youtube.com/embed/EB_V7Zs50yw';
+
+  function openTrailer(e) {
+    if (e) e.preventDefault();
+    const wrap = document.getElementById('trailerWrap');
+    wrap.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/EB_V7Zs50yw" frameborder="0" allowfullscreen></iframe>';
+    document.getElementById('trailerModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeTrailer() {
+    document.getElementById('trailerModal').classList.remove('open');
+    document.getElementById('trailerWrap').innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('trailerModal').addEventListener('click', function(e) {
+    if (e.target === this) closeTrailer();
+  });
+
+  // SCREENER
+  function openScreener() {
+    document.getElementById('screenerModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeScreener() {
+    document.getElementById('screenerModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('screenerModal').addEventListener('click', function(e) {
+    if (e.target === this) closeScreener();
+  });
+
+  function submitScreener() {
+    const box = document.querySelector('.screener-box');
+    box.innerHTML = '<h2 style="color:var(--neon-cyan);margin-bottom:1rem;">Request Sent!</h2><p style="color:var(--text-muted);">Thank you — we\'ll be in touch soon with screener access.</p>';
+    setTimeout(closeScreener, 2800);
+  }
+
+  // LIGHTBOX
+  function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightboxImg').src = src;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  // ESCAPE KEY
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeTrailer(); closeScreener(); closeLightbox(); }
+  });
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
