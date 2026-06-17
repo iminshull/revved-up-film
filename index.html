@@ -892,7 +892,7 @@
       <h2 class="section-heading" style="color: var(--neon-cyan);">The Iron Circuit</h2>
       <p>A young boy has a passion for racing. He’s determined to win a big race</p>
       <p><strong>Revved Up: The Iron Circuit</strong> is a high-octane animated short about courage, determination, and the refusal to stay in your lane.</p>
-      <p>Official selections at LA Shorts International - With more festivals to come!</p>
+      <p>Official selections at Independent Shorts - With more festivals to come!</p>
     </div>
   </div>
 </section>
@@ -929,8 +929,7 @@
       <!-- SIGGRAPH -->
 
       <!-- Atlanta -->
-
-      <!-- LA Shorts -->
+      <!-- Independent Shorts 1-->
       <div class="laurel reveal">
         <div class="laurel-wreath">
           <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -948,8 +947,31 @@
           </svg>
           <div class="laurel-text">
             <span class="laurel-official">Official Selection</span>
-            <span class="laurel-name">LA Shorts<br>Intl. Festival</span>
-            <span class="laurel-year">2025</span>
+            <span class="laurel-name">Independent Shorts<br>Sound Design</span>
+            <span class="laurel-year">2026</span>
+          </div>
+        </div>
+      </div>
+      <!-- Independent Shorts 2-->
+      <div class="laurel reveal">
+        <div class="laurel-wreath">
+          <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g opacity="0.7" stroke="#f9f002" stroke-width="1.2">
+              <path d="M20 55 C12 45, 10 30, 20 20 C25 15, 32 14, 38 18" stroke-linecap="round"/>
+              <path d="M18 55 C8 50, 5 35, 12 22" stroke-linecap="round"/>
+              <path d="M22 60 C10 58, 6 42, 14 28" stroke-linecap="round"/>
+              <path d="M25 65 C13 65, 8 50, 16 36" stroke-linecap="round"/>
+              <path d="M90 55 C98 45, 100 30, 90 20 C85 15, 78 14, 72 18" stroke-linecap="round"/>
+              <path d="M92 55 C102 50, 105 35, 98 22" stroke-linecap="round"/>
+              <path d="M88 60 C100 58, 104 42, 96 28" stroke-linecap="round"/>
+              <path d="M85 65 C97 65, 102 50, 94 36" stroke-linecap="round"/>
+              <path d="M55 88 L50 96 L55 94 L60 96 Z" fill="#f9f002" opacity="0.5"/>
+            </g>
+          </svg>
+          <div class="laurel-text">
+            <span class="laurel-official">Official Selection</span>
+            <span class="laurel-name">Independent Shorts<br>Best Animation</span>
+            <span class="laurel-year">2026</span>
           </div>
         </div>
       </div>
@@ -1060,10 +1082,10 @@
     <button class="screener-close" onclick="closeScreener()" aria-label="Close">×</button>
     <h2>Request a Screener</h2>
     <p>Fill in your details and we'll be in touch with screener access.</p>
-    <input type="text" placeholder="Your name" autocomplete="name">
-    <input type="email" placeholder="Email address" autocomplete="email">
-    <input type="text" placeholder="Organization / Festival (optional)">
-    <textarea placeholder="Anything you'd like to add?"></textarea>
+    <input type="text" id="screenerName" placeholder="Your name" autocomplete="name">
+    <input type="email" id="screenerEmail" placeholder="Email address" autocomplete="email">
+    <input type="text" id="screenerOrg" placeholder="Organization / Festival (optional)">
+    <textarea id="screenerMsg" placeholder="Anything you'd like to add?"></textarea>
     <button class="btn-primary" style="width:100%; justify-content:center; margin-top:0.25rem;" onclick="submitScreener()">Send Request</button>
   </div>
 </div>
@@ -1126,9 +1148,28 @@
   });
 
   function submitScreener() {
+    const name = document.getElementById('screenerName').value;
+    const email = document.getElementById('screenerEmail').value;
+    const org = document.getElementById('screenerOrg').value;
+    const message = document.getElementById('screenerMsg').value;
     const box = document.querySelector('.screener-box');
-    box.innerHTML = '<h2 style="color:var(--neon-cyan);margin-bottom:1rem;">Request Sent!</h2><p style="color:var(--text-muted);">Thank you — we\'ll be in touch soon with screener access.</p>';
-    setTimeout(closeScreener, 2800);
+
+    fetch('https://formspree.io/f/xykaalba', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, organization: org, message })
+    })
+    .then(response => {
+      if (response.ok) {
+        box.innerHTML = '<h2 style="color:var(--neon-cyan);margin-bottom:1rem;">Request Sent!</h2><p style="color:var(--text-muted);">Thank you — we\'ll be in touch soon with screener access.</p>';
+      } else {
+        box.innerHTML = '<h2 style="color:var(--neon-magenta);margin-bottom:1rem;">Something went wrong</h2><p style="color:var(--text-muted);">Please try again or email us directly.</p>';
+      }
+      setTimeout(closeScreener, 2800);
+    })
+    .catch(() => {
+      box.innerHTML = '<h2 style="color:var(--neon-magenta);margin-bottom:1rem;">Something went wrong</h2><p style="color:var(--text-muted);">Please try again or email us directly.</p>';
+    });
   }
 
   // LIGHTBOX
