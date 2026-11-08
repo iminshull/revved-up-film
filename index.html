@@ -857,7 +857,7 @@
     <li><a href="#festivals">Festivals</a></li>
     <li><a href="#filmmaker">Filmmaker</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#" class="nav-cta" onclick="openTrailer(event)">Watch Trailer ▶</a></li>
+    <li><a href="https://youtu.be/Om2mDYum-Po" target="_blank" rel="noopener" class="nav-cta">Watch the Film ▶</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -874,9 +874,9 @@
     <h1 class="hero-title">Losing isn’t<br><span class="line-accent">the end.</span><br>It’s another beginning.</h1>
     <p class="hero-body">A 10-minute story about crashing, rebuilding, and finding the courage to return to the race.</p>
     <div class="hero-actions">
-      <a href="#" class="btn-primary" onclick="openTrailer(event)">
+      <a href="https://youtu.be/Om2mDYum-Po" target="_blank" rel="noopener" class="btn-primary">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
-        Watch Trailer
+        Watch the Film
       </a>
       <button class="btn-secondary" onclick="openScreener()">
         Request Screener
@@ -895,7 +895,7 @@
             <polygon points="6,2 20,11 6,20" fill="#e040fb"/>
           </svg>
         </div>
-        <span class="video-label">Watch the trailer</span>
+        <span class="video-label">Watch the film</span>
       </div>
     </div>
     <div class="story-text reveal">
@@ -940,7 +940,29 @@
 
       <!-- SIGGRAPH -->
 
-      <!-- Atlanta -->
+      <!-- MFA -->
+      <div class="laurel reveal">
+        <div class="laurel-wreath">
+          <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g opacity="0.7" stroke="#f9f002" stroke-width="1.2">
+              <path d="M20 55 C12 45, 10 30, 20 20 C25 15, 32 14, 38 18" stroke-linecap="round"/>
+              <path d="M18 55 C8 50, 5 35, 12 22" stroke-linecap="round"/>
+              <path d="M22 60 C10 58, 6 42, 14 28" stroke-linecap="round"/>
+              <path d="M25 65 C13 65, 8 50, 16 36" stroke-linecap="round"/>
+              <path d="M90 55 C98 45, 100 30, 90 20 C85 15, 78 14, 72 18" stroke-linecap="round"/>
+              <path d="M92 55 C102 50, 105 35, 98 22" stroke-linecap="round"/>
+              <path d="M88 60 C100 58, 104 42, 96 28" stroke-linecap="round"/>
+              <path d="M85 65 C97 65, 102 50, 94 36" stroke-linecap="round"/>
+              <path d="M55 88 L50 96 L55 94 L60 96 Z" fill="#f9f002" opacity="0.5"/>
+            </g>
+          </svg>
+          <div class="laurel-text">
+            <span class="laurel-official">Official Nomination</span>
+            <span class="laurel-name">Motor Film Awards<br>Most Creative</span>
+            <span class="laurel-year">2026</span>
+          </div>
+        </div>
+      </div> 
       <!-- Independent Shorts 1-->
       <div class="laurel reveal">
         <div class="laurel-wreath">
@@ -1090,9 +1112,9 @@
     <p class="contact-tagline reveal">Whether this story reminds you of your child, your own setback, or the dream you are still chasing, thank you for being part of it.</p>
     <p class="contact-cta-line reveal">We get back up and keep moving forward.</p>
     <div class="contact-actions reveal">
-      <a href="https://www.youtube.com/embed/EB_V7Zs50yw" class="btn-primary" onclick="openTrailer(event)">
+      <a href="https://youtu.be/Om2mDYum-Po" target="_blank" rel="noopener" class="btn-primary">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
-        Watch Trailer
+        Watch the Film
       </a>
       <button class="btn-secondary" onclick="openScreener()">Request Screener</button>
     </div>
@@ -1170,13 +1192,13 @@
     });
   });
 
-  // TRAILER — replace PASTE_YOUR_YOUTUBE_EMBED_URL_HERE with your URL
-  const TRAILER_URL = 'https://www.youtube.com/embed/EB_V7Zs50yw';
+  // FULL FILM — YouTube embed ID for Revved Up: The Iron Circuit
+  const FILM_EMBED_URL = 'https://www.youtube.com/embed/Om2mDYum-Po';
 
   function openTrailer(e) {
     if (e) e.preventDefault();
     const wrap = document.getElementById('trailerWrap');
-    wrap.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/EB_V7Zs50yw" frameborder="0" allowfullscreen></iframe>';
+    wrap.innerHTML = '<iframe width="100%" height="100%" src="' + FILM_EMBED_URL + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
     document.getElementById('trailerModal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
